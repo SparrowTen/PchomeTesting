@@ -26,7 +26,7 @@ public class Login {
         driver.get("https://24h.pchome.com.tw/");           // 進入網址內容
     }
 
-    @Given("玩家導航至登入頁面")
+    @Given("使用者導航至登入頁面")
     public void userGotoLoginPage() throws InterruptedException {
         WebElement element = driver.findElement(By.xpath("//a[@title='登入']"));
         element.click();
