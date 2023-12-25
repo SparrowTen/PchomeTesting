@@ -31,4 +31,10 @@ public class Login {
         WebElement element = driver.findElement(By.xpath("//a[@title='登入']"));
         element.click();
     }
+
+    @Given("使用者在電子郵件欄位中輸入有效的電子郵件地址 {string}")
+    public void userEntersAnd(String email) throws InterruptedException {
+        WebElement element = driver.findElement(By.id("loginAcc"));
+        element.sendKeys(email);
+    }
 }
