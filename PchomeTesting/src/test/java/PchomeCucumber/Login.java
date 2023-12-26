@@ -76,7 +76,7 @@ public class Login {
 
     @Then("使用者應該登入失敗")
     public void userShouldBeLoggedNotIn() throws InterruptedException {
-        // 檢查是否有登出按鈕
+        // 檢查是否出現錯誤訊息
         WebElement element = driver.findElement(By.xpath("//div[text()='請輸入密碼']"));
         if (element.isDisplayed()) {
             assert true;
