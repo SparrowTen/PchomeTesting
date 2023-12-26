@@ -2,6 +2,8 @@ package PchomeCucumber;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -28,7 +30,7 @@ public class Login {
 
     @Given("使用者導航至登入頁面")
     public void userGotoLoginPage() throws InterruptedException {
-        WebElement element = driver.findElement(By.xpath("//a[@title='登入']"));
+        WebElement element = driver.findElement(By.xpath("//a[text()='登入']"));
         element.click();
     }
 
@@ -36,5 +38,29 @@ public class Login {
     public void userEntersAnd(String email) throws InterruptedException {
         WebElement element = driver.findElement(By.id("loginAcc"));
         element.sendKeys(email);
+    }
+
+    @Given("使用者在密碼欄位中輸入有效的密碼 {string}")
+    public void userEntersPass(String password) throws InterruptedException {
+        WebElement element = driver.findElement(By.id("loginPwd"));
+        element.sendKeys(password);
+    }
+
+    @Given("使用者點擊繼續按鈕")
+    public void userClickContinue() throws InterruptedException {
+        WebElement element = driver.findElement(By.id("btnKeep"));
+        element.click();
+    }
+
+    @Given("使用者點擊登入按鈕")
+    public void userClickLogin() throws InterruptedException {
+        WebElement element = driver.findElement(By.id("btnLogin"));
+        element.click();
+    }
+
+    @Then("使用者應該登入成功")
+    public void userShouldBeLoggedIn() {
+        Assert.assertTrue(driver.findElement(By.xpath("//a[text()='登出']")).isDisplayed());
+        driver.quit();
     }
 }
