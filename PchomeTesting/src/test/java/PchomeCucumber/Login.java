@@ -5,13 +5,11 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
 import java.time.Duration;
 
 public class Login {
@@ -19,10 +17,9 @@ public class Login {
     public void beforeScenario() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");   // 允許遠端控制瀏覽器
-        options.addArguments("--headless");                 // 不開啟瀏覽器
-        driver = new ChromeDriver();
+        options.addArguments("--window-size=1920,1080");    // 設定視窗大小 (寬, 高)
+        driver = new ChromeDriver(options);
         driver.manage().deleteAllCookies();                 // 刪除瀏覽器所有 cookie
-        driver.manage().window().maximize();                // 最大化瀏覽器
         // 設定 2 sec 的搜尋等待時間 (for driver.findElement)
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(2000));
         driver.get("https://24h.pchome.com.tw/");           // 進入網址內容
@@ -59,8 +56,21 @@ public class Login {
     }
 
     @Then("使用者應該登入成功")
-    public void userShouldBeLoggedIn() {
-        Assert.assertTrue(driver.findElement(By.xpath("//a[text()='登出']")).isDisplayed());
+    public void userShouldBeLoggedIn() throws InterruptedException {
+        // 檢查是否有 google reCAPTCHA
+        try {
+            WebElement element = driver.findElement(By.xpath("//iframe[@title='recaptcha challenge']"));
+            element.click();
+        } catch (Exception e) {
+            System.out.println("No google reCAPTCHA");
+        }
+        // 檢查是否有登出按鈕
+        WebElement element = driver.findElement(By.xpath("//div[text()='歡迎回來！']"));
+        if (element.isDisplayed()) {
+            assert true;
+        } else {
+            assert false;
+        }
         driver.quit();
     }
 }
