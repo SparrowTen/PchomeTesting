@@ -9,5 +9,5 @@ Feature: Login
     Then 使用者應該登入成功
 
     Examples:
-      | email                | password    |
-      | ${EMAIL}             | ${PASSWORD} |
+      | email | password |
+      | "EMAIL" | "PASSWORD" |

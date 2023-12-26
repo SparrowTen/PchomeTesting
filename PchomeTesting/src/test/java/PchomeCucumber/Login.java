@@ -1,8 +1,10 @@
 package PchomeCucumber;
 
 import io.cucumber.java.Before;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,14 +15,12 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.time.Duration;
 
 public class Login {
-    WebDriver driver;
-
-    @Before
+    WebDriver driver;    @Before
     public void beforeScenario() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");   // 允許遠端控制瀏覽器
         options.addArguments("--headless");                 // 不開啟瀏覽器
-        driver = new ChromeDriver(options);
+        driver = new ChromeDriver();
         driver.manage().deleteAllCookies();                 // 刪除瀏覽器所有 cookie
         driver.manage().window().maximize();                // 最大化瀏覽器
         // 設定 2 sec 的搜尋等待時間 (for driver.findElement)
@@ -34,25 +34,25 @@ public class Login {
         element.click();
     }
 
-    @Given("使用者在電子郵件欄位中輸入有效的電子郵件地址 {string}")
+    @When("使用者在電子郵件欄位中輸入有效的電子郵件地址 {string}")
     public void userEntersAnd(String email) throws InterruptedException {
         WebElement element = driver.findElement(By.id("loginAcc"));
         element.sendKeys(email);
     }
 
-    @Given("使用者在密碼欄位中輸入有效的密碼 {string}")
+    @When("使用者在密碼欄位中輸入有效的密碼 {string}")
     public void userEntersPass(String password) throws InterruptedException {
         WebElement element = driver.findElement(By.id("loginPwd"));
         element.sendKeys(password);
     }
 
-    @Given("使用者點擊繼續按鈕")
+    @And("使用者點擊繼續按鈕")
     public void userClickContinue() throws InterruptedException {
         WebElement element = driver.findElement(By.id("btnKeep"));
         element.click();
     }
 
-    @Given("使用者點擊登入按鈕")
+    @And("使用者點擊登入按鈕")
     public void userClickLogin() throws InterruptedException {
         WebElement element = driver.findElement(By.id("btnLogin"));
         element.click();
