@@ -13,7 +13,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.time.Duration;
 
 public class Login {
-    WebDriver driver;    @Before
+    WebDriver driver;
+    @Before
     public void beforeScenario() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");   // 允許遠端控制瀏覽器
