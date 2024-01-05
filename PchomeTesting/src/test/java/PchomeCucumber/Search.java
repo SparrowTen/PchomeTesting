@@ -43,4 +43,29 @@ public class Search {
         WebElement element = driver.findElement(By.xpath("//div[@id='layoutBread']"));
         assert element.isDisplayed();
     }
+
+    // 限時瘋搶
+    @When("使用者查看限時瘋搶")
+    public void userSeeFlashSale() throws InterruptedException {
+        WebElement element = driver.findElement(By.xpath("//h3[text()='限時瘋搶']"));
+        assert  element.isDisplayed();
+    }
+
+    @Then("使用者查看計時器倒數")
+    public void userSeeCountdown() throws InterruptedException {
+        WebElement element = driver.findElement(By.xpath("//div[text()='距離結束']"));
+        assert element.isDisplayed();
+    }
+
+    @Given("使用者點擊0800")
+    public void userClick0800() throws InterruptedException {
+        WebElement element = driver.findElement(By.xpath("//span[text()='08:00 現正瘋搶']"));
+        element.click();
+    }
+
+    @Given("使用者點擊1200")
+    public void userClick1200() throws InterruptedException {
+        WebElement element = driver.findElement(By.xpath("//span[text()='12:00 準時開搶']"));
+        element.click();
+    }
 }

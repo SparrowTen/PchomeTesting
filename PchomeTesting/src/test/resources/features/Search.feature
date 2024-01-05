@@ -3,3 +3,9 @@ Feature: Search
     Given 使用者在搜尋欄位中輸入 "APPLE"
     When 使用者點擊搜尋按鈕
     Then 使用者應該看到搜尋結果
+
+  Scenario: 限時瘋搶切換時間
+    When 使用者查看限時瘋搶
+    Then 使用者查看計時器倒數
+    Given 使用者點擊0800
+    Given 使用者點擊1200
