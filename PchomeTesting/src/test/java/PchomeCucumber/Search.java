@@ -5,6 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -18,9 +19,10 @@ public class Search {
     public void beforeScenario() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");   // 允許遠端控制瀏覽器
-        options.addArguments("--headless");                 // 不開啟實體瀏覽器背景執行
+        options.addArguments("--headless");                 // 不開啟瀏覽器
         driver = new ChromeDriver(options);
         driver.manage().deleteAllCookies();                 // 刪除瀏覽器所有 cookie
+        driver.manage().window().maximize();                // 最大化瀏覽器
         // 設定 2 sec 的搜尋等待時間 (for driver.findElement)
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(2000));
         driver.get("https://24h.pchome.com.tw/");           // 進入網址內容
@@ -42,6 +44,28 @@ public class Search {
     public void userShouldSeeResult() throws InterruptedException {
         WebElement element = driver.findElement(By.xpath("//div[@id='layoutBread']"));
         assert element.isDisplayed();
+        driver.quit();
+    }
+
+    // 回到頁首
+    @When("使用者在頁面底部")
+    public void userScrollToBottom() throws InterruptedException {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+    }
+
+    @Given("使用者點擊回到頁首按鈕")
+    public void userClickBackToTop() throws InterruptedException {
+        WebElement element = driver.findElement(By.xpath("//span[text()='Top']"));
+        element.click();
+    }
+
+    @Given("使用者應該看到頁面最上方")
+    public void userShouldSeeTop() throws InterruptedException {
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        Long value = (Long) executor.executeScript("return window.pageYOffset;");
+        assert value == 0;
+        driver.quit();
     }
 
     // 限時瘋搶
@@ -67,5 +91,6 @@ public class Search {
     public void userClick1200() throws InterruptedException {
         WebElement element = driver.findElement(By.xpath("//span[text()='12:00 準時開搶']"));
         element.click();
+        driver.quit();
     }
 }
