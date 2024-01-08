@@ -20,7 +20,7 @@ public class Search {
     public void initScenario() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");   // 允許遠端控制瀏覽器
-        options.addArguments("--headless");                 // 不開啟瀏覽器
+        // options.addArguments("--headless");                 // 不開啟瀏覽器
         driver = new ChromeDriver(options);
         driver.manage().deleteAllCookies();                 // 刪除瀏覽器所有 cookie
         driver.manage().window().maximize();                // 最大化瀏覽器
