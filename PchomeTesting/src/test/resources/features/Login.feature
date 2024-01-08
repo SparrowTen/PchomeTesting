@@ -1,4 +1,7 @@
 Feature: Login
+  Background: 初始化 Login 測試案列
+    Given 初始化 Login 測試案列
+
   Scenario: 登入成功
     Given 使用者導航至登入頁面
     When 使用者在電子郵件欄位中輸入有效的電子郵件地址 "EMAIL"

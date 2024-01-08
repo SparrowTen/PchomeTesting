@@ -1,4 +1,7 @@
 Feature: Search
+  Background: 初始化 Search 測試案列
+    Given 初始化 Search 測試案列
+
   Scenario: 搜尋商品
     Given 使用者在搜尋欄位中輸入 "APPLE"
     When 使用者點擊搜尋按鈕

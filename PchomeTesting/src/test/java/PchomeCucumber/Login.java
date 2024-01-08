@@ -15,8 +15,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Login {
     WebDriver driver;
-    @Before
-    public void beforeScenario() {
+
+    @Given("初始化 Login 測試案列")
+    public void initScenario() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");   // 允許遠端控制瀏覽器
         // options.addArguments("--headless");                 // 不開啟瀏覽器
